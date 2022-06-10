@@ -1,5 +1,6 @@
 package pages.base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -19,9 +20,9 @@ public class BasePage {
         actions = new Actions(driver);
     }
 
-    WebDriver driver;
-    WebDriverWait wait;
-    Actions actions;
+    public WebDriver driver;
+    public WebDriverWait wait;
+    public Actions actions;
 
     public void sendKeys(WebElement element, String text){
         System.out.println("Typing: " + text);
@@ -45,5 +46,15 @@ public class BasePage {
     public WebElement getRandomElement(List<WebElement> elements) {
         Random rnd = new Random();
         return elements.get(rnd.nextInt(elements.size()));
+    }
+
+    public WebElement getWebElementFromTheList(List<WebElement> webElementList, String selector, String webElementText){
+
+        for (WebElement webElement: webElementList) {
+            if(webElement.findElement(By.cssSelector(selector)).getText().equals(webElementText)){
+                return webElement;
+            }
+        }
+        return null;
     }
 }
