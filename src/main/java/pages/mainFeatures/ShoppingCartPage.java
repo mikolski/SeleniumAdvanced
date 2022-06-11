@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.base.BasePage;
+import pages.checkout.PersonalInfoCheckoutPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,9 @@ public class ShoppingCartPage extends BasePage {
 
     @FindBy(css=".no-items")
     private WebElement emptyCartMessage;
+
+    @FindBy(css=".cart-summary .btn-primary")
+    private WebElement proceedToCheckoutButton;
 
     private String productNameCssSelector = ".product-line-info .label";
 
@@ -68,5 +72,10 @@ public class ShoppingCartPage extends BasePage {
 
     public String getEmptyBasketMessage() {
         return emptyCartMessage.getText();
+    }
+
+    public PersonalInfoCheckoutPage proceedToCheckout() {
+        click(proceedToCheckoutButton);
+        return new PersonalInfoCheckoutPage(driver);
     }
 }

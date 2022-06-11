@@ -44,4 +44,7 @@ public class TopMenuPage extends BasePage {
         return new SearchResultsPage(driver);
     }
 
+    public void goToAccount() {
+        click(userName);
+    }
 }

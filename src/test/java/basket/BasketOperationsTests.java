@@ -1,6 +1,7 @@
 package basket;
 
 import base.Pages;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,14 +23,16 @@ public class BasketOperationsTests extends Pages {
 
         proceedToCheckoutPopupPage.proceedToCheckout();
 
-        assertThat(shoppingCartPage.getProductsNumber()).isEqualTo(1);
-        assertThat(shoppingCartPage.getProductsNames()).contains(productName);
-        assertThat(shoppingCartPage.getProductItemsQuantity(productName)).isEqualTo(3);
-        assertThat(shoppingCartPage.getProductPrice(productName)).isEqualTo("$19.12");
-        assertThat(shoppingCartPage.getProductTotalPrice(productName)).isEqualTo("$57.36");
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(shoppingCartPage.getProductsNumber()).isEqualTo(1);
+        softAssertions.assertThat(shoppingCartPage.getProductsNames()).contains(productName);
+        softAssertions.assertThat(shoppingCartPage.getProductItemsQuantity(productName)).isEqualTo(3);
+        softAssertions.assertThat(shoppingCartPage.getProductPrice(productName)).isEqualTo("$19.12");
+        softAssertions.assertThat(shoppingCartPage.getProductTotalPrice(productName)).isEqualTo("$57.36");
 
         shoppingCartPage.deleteProduct(productName);
 
-        assertThat(shoppingCartPage.getEmptyBasketMessage()).isEqualTo("There are no more items in your cart");
+        softAssertions.assertThat(shoppingCartPage.getEmptyBasketMessage()).isEqualTo("There are no more items in your cart");
+        softAssertions.assertAll();
     }
 }

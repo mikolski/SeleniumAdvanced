@@ -29,6 +29,10 @@ public class ProductsGridPage extends BasePage {
         return productName;
     }
 
+    public String getRandomProductName(){
+        return getProductName(getRandomProduct());
+    }
+
     public List<WebElement> getAllProducts(){
         return productsList;
     }
