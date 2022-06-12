@@ -17,7 +17,6 @@ public class CategoryTest extends Pages {
 
         for(int i = 0; i < categoriesNumber; i++){
             String categoryName = topMenuPage.getCategoriesNames().get(i);
-
             topMenuPage.goToCategory(i);
             assertThat(categoryPage.getCategoryName()).isEqualTo(categoryName);
             assertThat(categoryPage.getDeclaredProductsNumber()).isEqualTo(categoryPage.getActualProductsNumber());

@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import models.SocialTitle;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -78,13 +79,14 @@ public class CheckoutTests extends Pages {
                 .agreeToTerms()
                 .placeOrder();
 
-        assertThat(checkoutConfirmationPage.getConfirmationMessage()).isEqualTo("YOUR ORDER IS CONFIRMED");
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(checkoutConfirmationPage.getConfirmationMessage()).isEqualTo("YOUR ORDER IS CONFIRMED");
 
         // dla chetnych  - weryfikacja danych produktu (nazwa, cena, ilosc, cenalaczna)
-        assertThat(checkoutConfirmationPage.getNameOfProduct(productName)).isEqualTo(productName);
-        assertThat(checkoutConfirmationPage.getPriceOfProduct(productName)).isEqualTo(expectedProductPrice);
-        assertThat(checkoutConfirmationPage.getQuantityOfProduct(productName)).isEqualTo(productQuantity);
-        assertThat(checkoutConfirmationPage.getProductTotalPrice(productName)).isEqualTo(expectedTotalProductPrice);
+        softAssertions.assertThat(checkoutConfirmationPage.getNameOfProduct(productName)).isEqualTo(productName);
+        softAssertions.assertThat(checkoutConfirmationPage.getPriceOfProduct(productName)).isEqualTo(expectedProductPrice);
+        softAssertions.assertThat(checkoutConfirmationPage.getQuantityOfProduct(productName)).isEqualTo(productQuantity);
+        softAssertions.assertThat(checkoutConfirmationPage.getProductTotalPrice(productName)).isEqualTo(expectedTotalProductPrice);
 
         String orderID = checkoutConfirmationPage.getOrderId();
 
@@ -92,12 +94,13 @@ public class CheckoutTests extends Pages {
 
         myAccountPage.goToOrderHistory();
 
-        assertThat(historyOfOrdersPage.getOrdersIDs()).isNotEmpty().contains(orderID);
+        softAssertions.assertThat(historyOfOrdersPage.getOrdersIDs()).isNotEmpty().contains(orderID);
 
         historyOfOrdersPage.goToOrderDetails(orderID);
 
-        assertThat(orderDetailsPage.getOrderReferenceInfo()).contains(orderID);
+        softAssertions.assertThat(orderDetailsPage.getOrderReferenceInfo()).contains(orderID);
 
+        softAssertions.assertAll();
         // dla chetnych sprawdzic pozostałe dane zamowienia
 
     }
