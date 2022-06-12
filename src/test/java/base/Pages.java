@@ -6,6 +6,7 @@ import com.github.javafaker.service.RandomService;
 import org.testng.annotations.BeforeMethod;
 import pages.checkout.*;
 import pages.commons.BreadcrumbPage;
+import pages.commons.CategoryPage;
 import pages.commons.ProductsGridPage;
 import pages.commons.TopMenuPage;
 import pages.mainFeatures.ProductPage;
@@ -52,6 +53,8 @@ public class Pages extends TestBase{
 
     public OrderDetailsPage orderDetailsPage;
 
+    public CategoryPage categoryPage;
+
     @BeforeMethod
     public void testPagesSetup() {
         topMenuPage = new TopMenuPage(driver);
@@ -71,6 +74,7 @@ public class Pages extends TestBase{
         historyOfOrdersPage = new HistoryOfOrdersPage(driver);
         myAccountPage = new MyAccountPage(driver);
         orderDetailsPage = new OrderDetailsPage(driver);
+        categoryPage = new CategoryPage(driver);
     }
 
 
